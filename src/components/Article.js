@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import CommentList from './CommentList'
+import Button from './Button'
 
 export default class Article extends Component {
     state = {
@@ -32,9 +34,11 @@ export default class Article extends Component {
 
     getBody() {
         if (!this.state.isOpen) return null
+        if (!this.props.article.comments) return (<section>{this.props.article.text}</section>)
         return (
             <section>
                 {this.props.article.text}
+                <Button comments = {this.props.article.comments} />  
             </section>
         )
     }
