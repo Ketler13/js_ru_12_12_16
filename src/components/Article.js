@@ -1,44 +1,31 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import CommentList from './CommentList'
-import Button from './Button'
 
 export default class Article extends Component {
-    state = {
-        isOpen: false
+    static propTypes = {
+        article: PropTypes.object.isRequired
     }
 
-/*
-    constructor() {
-        super()
-        this.state = {
-            isOpen: false
-        }
+    componentDidMount() {
+        //console.log('---', this.refs.container)
     }
-*/
 
     render() {
-        const { article } = this.props
+        const { article, onClick } = this.props
         return (
-            <div>
-                <h3 onClick = {this.toggleOpen}>{article.title}</h3>
+            <div ref = "container">
+                <h3 onClick = {onClick}>{article.title}</h3>
                 {this.getBody()}
             </div>
         )
     }
 
-    toggleOpen = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        })
-    }
-
     getBody() {
-        if (!this.state.isOpen) return null
-        if (!this.props.article.comments) return (<section>{this.props.article.text}</section>)
+        if (!this.props.isOpen) return null
         return (
             <section>
                 {this.props.article.text}
-                <Button comments = {this.props.article.comments} />  
+                <CommentList comments = {this.props.article.comments} />
             </section>
         )
     }
