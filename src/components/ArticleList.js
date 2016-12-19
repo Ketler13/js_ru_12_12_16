@@ -28,8 +28,9 @@ export default class ArticleList extends React.Component {
     }
 
     toggleOpenArticle = id => ev => {
+      const openedArticleId = this.state.openArticleId === id ? null : id
         this.setState({
-            openArticleId: id
+            openArticleId: openedArticleId
         })
     }
 }
