@@ -6,6 +6,7 @@ export default class ArticleList extends React.Component {
     state = {
         openArticleId: null
     }
+
     render() {
         const {articles} = this.props
         const articleElements = articles.map(article =>
@@ -28,7 +29,7 @@ export default class ArticleList extends React.Component {
     }
 
     toggleOpenArticle = id => ev => {
-      const openedArticleId = this.state.openArticleId === id ? null : id
+        const openedArticleId = this.state.openArticleId === id ? null : id
         this.setState({
             openArticleId: openedArticleId
         })
