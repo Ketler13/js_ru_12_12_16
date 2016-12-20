@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import CommentList from './CommentList'
-
+//не очень логичное решение прятать CommentList внутрь Button, лучше наоборот
 export default class Button extends Component {
     state = {
         isOpen: false
