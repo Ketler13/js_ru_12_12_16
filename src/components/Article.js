@@ -2,6 +2,11 @@ import React, { Component, PropTypes } from 'react'
 import CommentList from './CommentList'
 
 export default class Article extends Component {
+
+    static defaultProps = {
+        article: {}
+    }
+
     static propTypes = {
         article: PropTypes.object.isRequired
     }
