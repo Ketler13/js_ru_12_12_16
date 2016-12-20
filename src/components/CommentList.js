@@ -7,6 +7,10 @@ class CommentList extends Component {
         comments: []
     }
 
+    static propTypes = {
+        comments: PropTypes.array.isRequired
+    }
+
     componentWillMount() {
         //console.log('---', 1)
     }
@@ -45,10 +49,6 @@ class CommentList extends Component {
         const commentItems = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
         return <ul>{commentItems}</ul>
     }
-}
-
-CommentList.propTypes = {
-    comments: PropTypes.array.isRequired
 }
 
 export default toggleOpen(CommentList)

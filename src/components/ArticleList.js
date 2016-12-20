@@ -7,6 +7,14 @@ export default class ArticleList extends React.Component {
         openArticleId: null
     }
 
+    static defaultProps = {
+        articles: []
+    }
+
+    static propTypes = {
+        articles: PropTypes.array.isRequired
+    }
+
     render() {
         const {articles} = this.props
         const articleElements = articles.map(article =>
@@ -34,8 +42,4 @@ export default class ArticleList extends React.Component {
             openArticleId: openedArticleId
         })
     }
-}
-
-ArticleList.propTypes = {
-    articles: PropTypes.array.isRequired
 }
