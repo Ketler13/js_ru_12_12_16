@@ -4,6 +4,7 @@ import React, {Component} from 'react'
 export default function accordion(Component) {
     return class ComposedComponent extends Component {
         state = {
+            //суть декораторов в переисползовании кода, не привязывайся к названиям сущностей. Лучше openItemId
             openArticleId: null
         }
         render() {
