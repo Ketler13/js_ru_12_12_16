@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
+import CommentAdder from './CommentAdder'
 
 class CommentList extends Component {
     static defaultProps = {
@@ -47,7 +48,12 @@ class CommentList extends Component {
         if (!isOpen) return null
         if (!comments.length) return <p>No comments yet</p>
         const commentItems = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
-        return <ul>{commentItems}</ul>
+        return (
+          <div>
+            <ul>{commentItems}</ul>
+            <CommentAdder />
+          </div>
+        )
     }
 }
 
