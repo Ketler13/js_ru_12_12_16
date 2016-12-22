@@ -17,7 +17,7 @@ class ArticleList extends Component {
         const articleElements = articles.map(article =>
             <li key={article.id}>
                 <Article article={article}
-                         isOpen={this.props.openArticleId == article.id}
+                         isOpen={this.props.openItemId == article.id}
                          onClick={this.props.accordion(article.id)}
                 />
             </li>)

@@ -5,7 +5,7 @@ export default function accordion(Component) {
     return class ComposedComponent extends Component {
         state = {
             //суть декораторов в переисползовании кода, не привязывайся к названиям сущностей. Лучше openItemId
-            openArticleId: null
+            openItemId: null
         }
         render() {
             return <Component {...this.props} {...this.state} accordion = {this.accordion}/>
@@ -13,9 +13,9 @@ export default function accordion(Component) {
 
         accordion = id => ev => {
             ev && ev.preventDefault && ev.preventDefault()
-            const openedArticleId = this.state.openArticleId === id ? null : id
+            const openedItemId = this.state.openItemId === id ? null : id
             this.setState({
-                openArticleId: openedArticleId
+                openItemId: openedItemId
             })
         }
 
