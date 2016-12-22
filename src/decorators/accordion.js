@@ -1,23 +1,24 @@
 //decorator === HOC(Higher Order Component)
-import React, {Component} from 'react'
+import React from 'react'
 
-export default function accordion(Component) {
-    return class ComposedComponent extends Component {
-        state = {
-            //суть декораторов в переисползовании кода, не привязывайся к названиям сущностей. Лучше openItemId
-            openItemId: null
+export default (Component) => class AccordionDecorator extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            openItemId: false
         }
-        render() {
-            return <Component {...this.props} {...this.state} accordion = {this.accordion}/>
-        }
-
-        accordion = id => ev => {
-            ev && ev.preventDefault && ev.preventDefault()
-            const openedItemId = this.state.openItemId === id ? null : id
-            this.setState({
-                openItemId: openedItemId
-            })
-        }
-
     }
+
+    render() {
+        return <Component {...this.props} isOpenItem = {this.isOpen} toggleOpenItem = {this.toggleOpenItem}/>
+    }
+
+    isOpen = id => this.state.openItemId == id
+
+    toggleOpenItem = id => ev => {
+        this.setState({
+            openItemId: this.state.openItemId == id ? null : id
+        })
+    }
+
 }

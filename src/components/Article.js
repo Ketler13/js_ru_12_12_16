@@ -2,17 +2,23 @@ import React, { Component, PropTypes } from 'react'
 import CommentList from './CommentList'
 
 export default class Article extends Component {
-
-    static defaultProps = {
-        article: {}
-    }
-
     static propTypes = {
-        article: PropTypes.object.isRequired
+        article: PropTypes.object.isRequired,
+        isOpen: PropTypes.bool,
+        onClick: PropTypes.func
     }
 
     componentDidMount() {
-        //console.log('---', this.refs.container)
+//        console.log('---', this.refs.container)
+    }
+/*
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props.isOpen != nextProps.isOpen
+    }
+*/
+
+    componentWillUpdate() {
+        console.log('---', 'updating article')
     }
 
     render() {

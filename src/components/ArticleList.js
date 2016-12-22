@@ -1,24 +1,17 @@
-import React, {Component, PropTypes} from 'react'
+import React, {PropTypes} from 'react'
+import {findDOMNode} from 'react-dom'
 import Article from './Article'
-import Chart from './Chart'
 import accordion from '../decorators/accordion'
 
-class ArticleList extends Component {
-    static defaultProps = {
-        articles: []
-    }
-
-    static propTypes = {
-        articles: PropTypes.array.isRequired
-    }
-
+class ArticleList extends React.Component {
     render() {
-        const {articles} = this.props
+        const {articles, isOpenItem, toggleOpenItem} = this.props
         const articleElements = articles.map(article =>
             <li key={article.id}>
                 <Article article={article}
-                         isOpen={this.props.openItemId == article.id}
-                         onClick={this.props.accordion(article.id)}
+                         isOpen={isOpenItem(article.id)}
+                         onClick={toggleOpenItem(article.id)}
+                         ref = {this.getArticleRef}
                 />
             </li>)
         return (
@@ -28,17 +21,20 @@ class ArticleList extends Component {
                     {/*some comment*/}
                     {articleElements}
                 </ul>
-                <Chart articles={articles}/>
             </div>
         )
     }
 
-    // toggleOpenArticle = id => ev => {
-    //     const openedArticleId = this.state.openArticleId === id ? null : id
-    //     this.setState({
-    //         openArticleId: openedArticleId
-    //     })
-    // }
+    getArticleRef = (article) => {
+        this.article = article
+        console.log('---', findDOMNode(article))
+    }
+}
+
+ArticleList.propTypes = {
+    articles: PropTypes.array.isRequired,
+    isOpenItem: PropTypes.func.isRequired,
+    toggleOpenItem: PropTypes.func.isRequired
 }
 
 export default accordion(ArticleList)
