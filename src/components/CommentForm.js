@@ -1,43 +1,27 @@
 import React, { Component, PropTypes }  from 'react'
+import CommentFormDecorator from '../decorators/commentFormDecorator'
 //import CommentFormInput from './CommentFormInput'
 
-export default class CommentAdder extends Component {
-  state = {
-    username: '',
-    commentText: ''
-  }
+class CommentForm extends Component {
 
   render() {
+    const {username, commentText} = this.props.state
+    const inputChange = this.props.inputChange
+    const addCmnt = this.props.addCmnt
     return (
       <form>
         <p>Enter your nickname:</p>
-        <p><input type="text" name="username" value={this.state.username} onChange={this.inputChange} /></p>
+        <p><input type="text" name="username" value={username} onChange={inputChange} /></p>
         <p>Enter your comment:</p>
-        <p><textarea rows="2" cols="45" name="commentText" value={this.state.commentText} onChange={this.inputChange}></textarea></p>
-        <p><input type="button" value="Send comment" onClick = {this.addCmnt} /></p>
+        <p><textarea rows="2" cols="45" name="commentText" value={commentText} onChange={inputChange}></textarea></p>
+        <p><input type="button" value="Send comment" onClick = {addCmnt} /></p>
       </form>
     )
   }
 
-  inputChange = (ev) => {
-    const inputName = ev.target.name
-    const inputValue = ev.target.value
-    this.setState({
-      [inputName]: inputValue
-    })
-  }
-
-
-  addCmnt = () => {
-    if (this.state.username && this.state.commentText) {
-      console.log(`User *${this.state.username}* send a comment: ${this.state.commentText}`)
-    }
-    this.setState({
-      username: '',
-      commentText: ''
-    })
-  }
 }
+
+export default CommentFormDecorator(CommentForm)
 
 
 

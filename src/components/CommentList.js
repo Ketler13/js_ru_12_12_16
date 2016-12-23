@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
-import CommentAdder from './CommentAdder'
+import CommentForm from './CommentForm'
 
 class CommentList extends Component {
     static defaultProps = {
@@ -51,7 +51,7 @@ class CommentList extends Component {
         return (
           <div>
             <ul>{commentItems}</ul>
-            <CommentAdder />
+            <CommentForm />
           </div>
         )
     }
