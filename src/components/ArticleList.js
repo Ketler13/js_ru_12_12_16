@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react'
 import {findDOMNode} from 'react-dom'
 import Article from './Article'
 import accordion from '../decorators/accordion'
+import Calendar from './Calendar'
 
 class ArticleList extends React.Component {
     render() {
@@ -17,6 +18,7 @@ class ArticleList extends React.Component {
         return (
             <div>
                 <h2>Article List</h2>
+                <Calendar />
                 <ul>
                     {/*some comment*/}
                     {articleElements}
