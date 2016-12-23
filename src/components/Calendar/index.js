@@ -1,13 +1,25 @@
 import React, { Component, PropTypes } from 'react'
 import Range from './Range'
 import toggleOpen from '../../decorators/toggleOpen'
+import CSSTransition from 'react-addons-css-transition-group'
 
 class Calendar extends Component {
+  static propTypes = {
+      isOpen: PropTypes.bool,
+      onClick: PropTypes.func
+  }
+
   render() {
     return (
       <div>
         {this.getToggleButton()}
-        {this.getCalendar()}
+        <CSSTransition
+          transitionName="article-body"
+          transitionEnterTimeout={100}
+          transitionLeaveTimeout={100}
+        >
+          {this.getCalendar()}
+        </CSSTransition>
       </div>
     )
   }

@@ -3,6 +3,11 @@ import CommentFormDecorator from '../decorators/commentFormDecorator'
 //import CommentFormInput from './CommentFormInput'
 
 class CommentForm extends Component {
+  static propTypes = {
+    state: PropTypes.object.isRequired,
+    inputChange: PropTypes.func.isRequired,
+    addCmnt: PropTypes.func.isRequired
+  }
 
   render() {
     const {username, commentText} = this.props.state

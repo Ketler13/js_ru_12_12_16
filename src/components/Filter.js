@@ -4,7 +4,7 @@ import 'react-select/dist/react-select.css'
 
 class Filter extends Component {
     static propTypes = {
-
+      articles: PropTypes.array.isRequired
     };
 
     state = {
