@@ -1,4 +1,5 @@
 import React, { Component, PropTypes }  from 'react'
+//import CommentFormInput from './CommentFormInput'
 
 export default class CommentAdder extends Component {
   state = {
@@ -27,9 +28,9 @@ export default class CommentAdder extends Component {
   }
 
 
-  addCmnt = (ev) => {
+  addCmnt = () => {
     if (this.state.username && this.state.commentText) {
-      console.log(`User ${this.state.username} send a comment: ${this.state.commentText}`)
+      console.log(`User *${this.state.username}* send a comment: ${this.state.commentText}`)
     }
     this.setState({
       username: '',
@@ -37,3 +38,33 @@ export default class CommentAdder extends Component {
     })
   }
 }
+
+
+
+// <form>
+//   <CommentFormInput
+//     type={"text"}
+//     value={this.state.username}
+//     name="username"
+//     onChange={this.inputChange}
+//     label="Enter your nickname:"
+//     state={this.state}
+//   />
+//   <CommentFormInput
+//     type={"text"}
+//     value={this.state.commentText}
+//     name="commentText"
+//     onChange={this.inputChange}
+//     label="Enter your comment:"
+//     state={this.state}
+//   />
+//   <CommentFormInput
+//     type={"button"}
+//     value="Send comment"
+//     name="commentButton"
+//     onClick={this.addCmnt}
+//     state={this.state}
+//   />
+// </form>
+
+//<CommentFormInput inputType={"button"} value={"Send"} label={"Send message"} onClick={this.test}/>
