@@ -3,6 +3,7 @@ import Range from './Range'
 import toggleOpen from '../../decorators/toggleOpen'
 import CSSTransition from 'react-addons-css-transition-group'
 
+
 class Calendar extends Component {
   static propTypes = {
       isOpen: PropTypes.bool,
@@ -14,9 +15,9 @@ class Calendar extends Component {
       <div>
         {this.getToggleButton()}
         <CSSTransition
-          transitionName="article-body"
-          transitionEnterTimeout={100}
-          transitionLeaveTimeout={100}
+          transitionName="calendar"
+          transitionEnterTimeout={1000}
+          transitionLeaveTimeout={10}
         >
           {this.getCalendar()}
         </CSSTransition>

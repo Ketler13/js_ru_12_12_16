@@ -30,8 +30,8 @@ export default class Article extends Component {
                 <h3 onClick = {onClick}>{article.title}</h3>
                 <CSSTransition
                   transitionName="article-body"
-                  transitionEnterTimeout={100}
-                  transitionLeaveTimeout={100}
+                  transitionEnterTimeout={200}
+                  transitionLeaveTimeout={500}
                 >
                   {this.getBody()}
                 </CSSTransition>

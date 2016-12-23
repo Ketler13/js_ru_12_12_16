@@ -4,7 +4,7 @@
 
 .article-body-enter.article-body-enter-active {
     opacity: 1;
-    transition: opacity 10000ms ease-in;
+    transition: opacity 500ms ease-in;
 }
 
 .article-body-leave {
