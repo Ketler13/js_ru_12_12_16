@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import CommentList from '../CommentList'
+import CSSTransition from 'react-addons-css-transition-group'
+import './style.css'
 
 export default class Article extends Component {
     static propTypes = {
@@ -18,7 +20,7 @@ export default class Article extends Component {
 */
 
     componentWillUpdate() {
-        console.log('---', 'updating article')
+        //console.log('---', 'updating article')
     }
 
     render() {
@@ -26,7 +28,13 @@ export default class Article extends Component {
         return (
             <div ref = "container">
                 <h3 onClick = {onClick}>{article.title}</h3>
-                {this.getBody()}
+                <CSSTransition
+                  transitionName="article-body"
+                  transitionEnterTimeout={500}
+                  transitionLeaveTimeout={300}
+                >
+                  {this.getBody()}
+                </CSSTransition>
             </div>
         )
     }
