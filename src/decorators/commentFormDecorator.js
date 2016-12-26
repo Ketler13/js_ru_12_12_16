@@ -1,5 +1,5 @@
 import React from 'react'
-
+//с этим ты перемудрил. Нет никакого смысла делать декоратор для коммент-формы, Ты же не будешь его переиспользовать
 export default (Component) => class CommentFormDecorator extends React.Component {
   constructor() {
     super()
