@@ -13,5 +13,5 @@
 
 .article-body-leave.article-body-leave-active {
     opacity: 0.01;
-    transition: opacity 500ms ease-in;
+    transition: opacity 300ms ease-in;
 }

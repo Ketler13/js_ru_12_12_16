@@ -1,31 +1,16 @@
 import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
-import CommentForm from './CommentForm'
+import NewCommentForm from './NewCommentForm'
 
 class CommentList extends Component {
+    static propTypes = {
+        comments: PropTypes.array,
+        isOpen: PropTypes.bool,
+        toggleOpen: PropTypes.func
+    }
     static defaultProps = {
         comments: []
-    }
-
-    static propTypes = {
-        comments: PropTypes.array.isRequired
-    }
-
-    componentWillMount() {
-        //console.log('---', 1)
-    }
-
-    componentDidMount() {
-        //console.log('---', 2)
-    }
-
-    componentWillUnmount() {
-        //console.log('---', 3)
-    }
-
-    componentWillReceiveProps(nextProps) {
-        //console.log('---', 'updating to toggle open', this.props.isOpen !== nextProps.isOpen)
     }
 
     render() {
@@ -46,20 +31,15 @@ class CommentList extends Component {
     getBody() {
         const { comments, isOpen } = this.props
         if (!isOpen) return null
-        if (!comments.length) {
-          return (
-            <div>
-              <p>No comments yet</p>
-              <CommentForm />
-            </div>
-           )
-        }
+        const form = <NewCommentForm addComment={(comment) => console.log(comment)} />
+        if (!comments.length) return <div><p>No comments yet</p>{form}</div>
+
         const commentItems = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
         return (
-          <div>
-            <ul>{commentItems}</ul>
-            <CommentForm />
-          </div>
+            <div>
+                <ul>{commentItems}</ul>
+                {form}
+            </div>
         )
     }
 }

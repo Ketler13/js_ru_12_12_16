@@ -1,25 +1,19 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import ArticleList from './ArticleList'
 import UserForm from './UserForm'
-import Filter from './Filter'
+import Filter from './Filters'
 
-class AppContainer extends Component {
-    static defaultProps = {
-      articles: []
-    }
-    static propTypes = {
-      articles: PropTypes.array.isRequired
-    }
+function AppContainer(props) {
+    return (
+        <div>
+            <UserForm />
+            <Filter articles = {props.articles}/>
+            <ArticleList articles={props.articles}/>
+        </div>
+    )
+}
 
-    render() {
-      return (
-          <div>
-              <UserForm />
-              <Filter articles = {this.props.articles}/>
-              <ArticleList articles={this.props.articles}/>
-          </div>
-      )
-    }
+AppContainer.propTypes = {
 }
 
 export default AppContainer
