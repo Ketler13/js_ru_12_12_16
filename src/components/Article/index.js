@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import CommentList from '../CommentList'
 import CSSTransition from 'react-addons-css-transition-group'
+import { deleteArticle } from '../../AC'
+import { connect } from 'react-redux'
 import './style.css'
 
-export default class Article extends Component {
+class Article extends Component {
     static propTypes = {
         article: PropTypes.object.isRequired,
         isOpen: PropTypes.bool,
@@ -20,15 +22,17 @@ export default class Article extends Component {
      */
 
     componentWillUpdate() {
-        console.log('---', 'updating article')
+        //console.log('---', 'updating article')
     }
 
     render() {
-        console.log('---', 123)
         const { article, onClick } = this.props
         return (
             <div ref = "container">
                 <h3 onClick = {onClick}>{article.title}</h3>
+                <div>
+                  <a href = "#" onClick = {this.handleDelete}>delete article</a>
+                </div>
                 <CSSTransition
                     transitionName="article-body"
                     transitionEnterTimeout={500}
@@ -49,4 +53,11 @@ export default class Article extends Component {
             </section>
         )
     }
+
+    handleDelete = ev => {
+      ev.preventDefault()
+      this.props.deleteArticle(this.props.article.id)
+    }
 }
+//connect заворачивает deleteArticle в store.dispatch и передает ее через props
+export default connect(null, { deleteArticle })(Article)

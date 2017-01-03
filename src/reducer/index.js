@@ -1,12 +1,8 @@
-export default (state = 0, action) => {
-  const { type } = action
+import { combineReducers } from 'redux'
+import counterReducer from './counterReducer'
+import articlesReducer from './articlesReducer'
 
-  switch (type) {
-    case 'INCREMENT':
-      return state + 1
-      break;
-  }
-
-  return state
-
-}
+export default combineReducers({
+  count: counterReducer,
+  articles: articlesReducer
+})
