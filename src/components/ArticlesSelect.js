@@ -7,25 +7,25 @@ class ArticlesSelect extends Component {
         articles: PropTypes.array
     };
 
+    state = {
+        selected: null
+    }
 
     render() {
         const options = this.props.articles.map(article => ({
             label: article.title,
-            value: article.id,
-            clearableValue: true
+            value: article.id
         }))
         return (
             <div>
-                <Select options={options} value={this.props.selected} onChange={this.handleChange} multi={false}/>
+                <Select options={options} value={this.state.selected} onChange={this.handleChange} multi={true}/>
             </div>
         )
     }
 
-    handleChange = (selected) => {
-      this.props.filterArticles(selected)
-      if (selected) this.props.filteredArticles(selected.label)
-      else this.props.showAllArticles()
-    }
+    handleChange = selected => this.setState({
+        selected
+    })
 }
 
 export default ArticlesSelect
