@@ -1,5 +1,6 @@
 import articlesReducer from './articles'
-import { FILTER_BY_SELECT } from '../constants'
+import { articles } from '../fixtures'
+import { FILTER_BY_SELECT, DELETE_ARTICLE } from '../constants'
 import { showAll } from '../AC'
 
 
@@ -19,6 +20,9 @@ export default (articlesState = initialState, action) => {
         }
         if (articlesState.length === 0) return initialState
         return selectedArticles
+
+    case DELETE_ARTICLE:
+      return articlesState.filter(article => article.id !== payload.id)
 
     default:
       return articlesState
