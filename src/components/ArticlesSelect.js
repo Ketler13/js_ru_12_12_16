@@ -7,9 +7,9 @@ class ArticlesSelect extends Component {
         articles: PropTypes.array
     };
 
-    state = {
-        selected: null
-    }
+    // state = {
+    //     selected: null
+    // }
 
     render() {
         const options = this.props.articles.map(article => ({
@@ -18,14 +18,21 @@ class ArticlesSelect extends Component {
         }))
         return (
             <div>
-                <Select options={options} value={this.state.selected} onChange={this.handleChange} multi={true}/>
+                <Select options={options} value={this.props.selected} onChange={this.handleChange} multi={true}/>
             </div>
         )
     }
 
-    handleChange = selected => this.setState({
-        selected
-    })
+    handleChange = selected => {
+      const selectedLabels = selected.map(sel => sel.label)
+      this.props.filterBySelect(selectedLabels)
+      this.props.selectValues(selected)
+      //console.log(selectedLabels)
+    }
+
+    // handleChange = selected => this.setState({
+    //     selected
+    // })
 }
 
 export default ArticlesSelect

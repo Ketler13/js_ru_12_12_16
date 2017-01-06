@@ -3,10 +3,13 @@ import {findDOMNode} from 'react-dom'
 import Article from './Article'
 import accordion from '../decorators/accordion'
 import { connect } from 'react-redux'
+import { filterBySelect } from '../AC'
 
 class ArticleList extends React.Component {
     render() {
+      //console.log(this.props.selectedArticles)
         const {articles, isOpenItem, toggleOpenItem} = this.props
+        console.log(articles)
         const articleElements = articles.map(article =>
             <li key={article.id}>
                 <Article article={article}
@@ -28,7 +31,7 @@ class ArticleList extends React.Component {
 
     getArticleRef = (article) => {
         this.article = article
-        console.log('---', findDOMNode(article))
+        //console.log('---', findDOMNode(article))
     }
 }
 
@@ -41,7 +44,8 @@ ArticleList.propTypes = {
 export default connect(
   (state) => {
     return {
-      articles: state.articles
+      articles: state.selectedArticles,
+      selectedArticles: state.selectedArticles
     }
   }
 )(accordion(ArticleList))
