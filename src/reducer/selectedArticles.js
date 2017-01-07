@@ -1,28 +1,37 @@
 import articlesReducer from './articles'
-import { articles } from '../fixtures'
-import { FILTER_BY_SELECT, DELETE_ARTICLE } from '../constants'
+import { FILTER_BY_SELECT, DELETE_ARTICLE, FILTER_BY_DATE } from '../constants'
 import { showAll } from '../AC'
+import { articles } from '../fixtures'
 
-
-const initialState = articlesReducer(undefined, showAll)
+const initialState = articles
 
 export default (articlesState = initialState, action) => {
   const { type, payload } = action
   let selectedArticles = []
 
-  if (articlesState.length === 0) return initialState
+  if (articlesState.length === 0) return initialState.filter(z => true)
 
   switch (type) {
     case FILTER_BY_SELECT:
-      //if (articlesState.length === 0) return articlesReducer(undefined, showAll)
-        for (let i = 0; i < payload.selectedLabels.length; i++) {
-          selectedArticles = selectedArticles.concat(initialState.filter(article => article.title === payload.selectedLabels[i]))
-        }
-        if (articlesState.length === 0) return initialState
-        return selectedArticles
+      for (let i = 0; i < payload.selectedLabels.length; i++) {
+        selectedArticles = selectedArticles.concat(initialState.filter(article => article.title === payload.selectedLabels[i]))
+      }
+      if (articlesState.length === 0) return initialState.filter(k => true)
+      return selectedArticles
 
     case DELETE_ARTICLE:
       return articlesState.filter(article => article.id !== payload.id)
+
+    case FILTER_BY_DATE:
+      const { from, to } = payload
+      const fromMS = Date.parse(from)
+      const toMS = Date.parse(to)
+      if (!fromMS || !toMS) return initialState.filter(s => true)
+      else {
+        return articlesState.filter(article => {
+          return (Date.parse(article.date) >= fromMS && Date.parse(article.date) <= toMS)
+        })
+      }
 
     default:
       return articlesState

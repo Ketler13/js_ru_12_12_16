@@ -7,9 +7,7 @@ import { filterBySelect } from '../AC'
 
 class ArticleList extends React.Component {
     render() {
-      //console.log(this.props.selectedArticles)
         const {articles, isOpenItem, toggleOpenItem} = this.props
-        console.log(articles)
         const articleElements = articles.map(article =>
             <li key={article.id}>
                 <Article article={article}

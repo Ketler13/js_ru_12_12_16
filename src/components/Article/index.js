@@ -32,6 +32,7 @@ class Article extends Component {
                 <h3 onClick = {onClick}>{article.title}</h3>
                 <div>
                   <a href = "#" onClick = {this.handleDelete}>delete article</a>
+                  <p>{ article.date }</p>
                 </div>
                 <CSSTransition
                     transitionName="article-body"

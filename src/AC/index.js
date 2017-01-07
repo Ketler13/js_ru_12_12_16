@@ -1,4 +1,4 @@
-import { INCREMENT, DELETE_ARTICLE, SELECT_VALUES, FILTER_BY_SELECT } from '../constants'
+import { INCREMENT, DELETE_ARTICLE, SELECT_VALUES, FILTER_BY_SELECT, FILTER_BY_DATE } from '../constants'
 
 export function increment() {
   return {
@@ -27,6 +27,16 @@ export function filterBySelect(selectedLabels) {
     type: FILTER_BY_SELECT,
     payload: {
       selectedLabels
+    }
+  }
+}
+
+export function filterByDate(from, to) {
+  return {
+    type: FILTER_BY_DATE,
+    payload: {
+      from,
+      to
     }
   }
 }

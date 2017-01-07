@@ -9,7 +9,17 @@ class DateRange extends Component {
     }
 
     handleDayClick = (e, day) => {
-        this.setState(DateUtils.addDayToRange(day, this.state))
+        const range = (DateUtils.addDayToRange(day, this.state))
+        const { from, to } = range
+        const filterByDate = this.props.filterByDate
+        this.setState(range)
+        filterByDate(from, to)
+    }
+
+    sendRangeToStore = (from, to) => {
+      console.log(from, to)
+      const filterByDate = this.props.filterByDate
+      //filterByDate(from, to)
     }
 
     render() {
