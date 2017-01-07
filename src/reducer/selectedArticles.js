@@ -3,7 +3,7 @@ import { FILTER_BY_SELECT, DELETE_ARTICLE, FILTER_BY_DATE } from '../constants'
 import { showAll } from '../AC'
 import { articles } from '../fixtures'
 
-const initialState = articles
+const initialState = articlesReducer(undefined, showAll)
 
 export default (articlesState = initialState, action) => {
   const { type, payload } = action

@@ -16,12 +16,6 @@ class DateRange extends Component {
         filterByDate(from, to)
     }
 
-    sendRangeToStore = (from, to) => {
-      console.log(from, to)
-      const filterByDate = this.props.filterByDate
-      //filterByDate(from, to)
-    }
-
     render() {
         const { from, to } = this.state;
         const selectedRange = from && to && `${from.toDateString()} - ${to.toDateString()}`
