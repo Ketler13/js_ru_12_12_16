@@ -4,7 +4,7 @@ import { showAll } from '../AC'
 import { articles } from '../fixtures'
 
 const initialState = articlesReducer(undefined, showAll)
-
+//этот редюсер убрать. У тебя есть значения фильтров и все статьи. Пофильтровать сможешь там, где нужен будет список 
 export default (articlesState = initialState, action) => {
   const { type, payload } = action
   let selectedArticles = []
