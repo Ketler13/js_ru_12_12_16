@@ -18,7 +18,7 @@ class Filters extends Component {
                 selectValues = {this.props.selectValues}
                 filterBySelect = {this.props.filterBySelect}
                 />
-                <DateRange filterByDate = {this.props.filterByDate}/>
+                <DateRange filterByDate = {this.props.filterByDate} from = {this.props.from} to = {this.props.to}/>
             </div>
         )
     }
@@ -27,6 +27,8 @@ class Filters extends Component {
 export default connect((state) => {
   return {
     articles: state.articles,
-    selected: state.selectValues.selected
+    selected: state.selectValues.selected,
+    from: state.selectValues.from,
+    to: state.selectValues.to
   }
 }, { selectValues, filterBySelect, filterByDate })(Filters)

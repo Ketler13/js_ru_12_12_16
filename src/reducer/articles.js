@@ -1,5 +1,10 @@
 import { articles } from '../fixtures'
 
 export default (articlesState = articles, action) => {
-    return articlesState
+  const {payload} = action
+  if (!payload) return articlesState
+  else {
+    return articlesState.filter(article => article.id !== payload.id)
+  }
+  //return articlesState
 }

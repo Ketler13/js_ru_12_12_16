@@ -20,18 +20,18 @@ export default (articlesState = initialState, action) => {
       return selectedArticles
 
     case DELETE_ARTICLE:
-      return articlesState.filter(article => article.id !== payload.id)
+    //return articlesState
+       return articlesState.filter(article => article.id !== payload.id)
 
     case FILTER_BY_DATE:
       const { from, to } = payload
       const fromMS = Date.parse(from)
       const toMS = Date.parse(to)
-      if (!fromMS || !toMS) return initialState.filter(s => true)
-      else {
+      if (fromMS && toMS) {
         return articlesState.filter(article => {
           return (Date.parse(article.date) >= fromMS && Date.parse(article.date) <= toMS)
         })
-      }
+      } else return initialState.filter(s => true)
 
     default:
       return articlesState
