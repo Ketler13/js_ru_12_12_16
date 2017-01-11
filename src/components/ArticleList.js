@@ -43,6 +43,7 @@ export default connect(
   (state) => {
     return {
       articles: state.selectedArticles,
+        //это лишнее
       selectedArticles: state.selectedArticles
     }
   }
