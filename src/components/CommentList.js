@@ -2,10 +2,11 @@ import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 import NewCommentForm from './NewCommentForm'
+import { connect } from 'react-redux'
 
 class CommentList extends Component {
     static propTypes = {
-        comments: PropTypes.array,
+        commentsIds: PropTypes.array,
         isOpen: PropTypes.bool,
         toggleOpen: PropTypes.func
     }
@@ -44,4 +45,8 @@ class CommentList extends Component {
     }
 }
 
-export default toggleOpen(CommentList)
+export default connect((storeState, props) => {
+    return {
+        comments: props.commentsIds.map(id => storeState.comments[id])
+    }
+})(toggleOpen(CommentList))
