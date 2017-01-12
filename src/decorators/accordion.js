@@ -1,4 +1,3 @@
-//decorator === HOC(Higher Order Component)
 import React from 'react'
 
 export default (Component) => class AccordionDecorator extends React.Component {

@@ -22,7 +22,7 @@ class Article extends Component {
      */
 
     componentWillUpdate() {
-        //console.log('---', 'updating article')
+        console.log('---', 'updating article')
     }
 
     render() {
@@ -31,8 +31,7 @@ class Article extends Component {
             <div ref = "container">
                 <h3 onClick = {onClick}>{article.title}</h3>
                 <div>
-                  <a href = "#" onClick = {this.handleDelete}>delete article</a>
-                  <p>{ article.date }</p>
+                    <a href="#" onClick = {this.handleDelete}>delete article</a>
                 </div>
                 <CSSTransition
                     transitionName="article-body"
@@ -56,9 +55,9 @@ class Article extends Component {
     }
 
     handleDelete = ev => {
-      ev.preventDefault()
-      this.props.deleteArticle(this.props.article.id)
+        ev.preventDefault()
+        this.props.deleteArticle(this.props.article.id)
     }
 }
-//connect заворачивает deleteArticle в store.dispatch и передает ее через props
+
 export default connect(null, { deleteArticle })(Article)
