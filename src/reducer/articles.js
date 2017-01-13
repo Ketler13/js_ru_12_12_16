@@ -22,7 +22,6 @@ export default (articlesState = defaultState, action) => {
 
         case ADD_COMMENT:
             const { id, articleId } = payload
-            const mutableState = mapToArray(articlesState)
             const comments = articlesState.getIn([articleId, 'comments'])
             comments.push(id)
             return articlesState.setIn([articleId, 'comments'], comments)
