@@ -16,10 +16,11 @@ export default (state = defaultState, action) => {
 
     switch (type) {
         case ADD_COMMENT:
+            const { id, user, text } = payload
             const newComment = {
-                id: payload.id,
-                user: payload.user,
-                text: payload.text
+                id,
+                user,
+                text
             }
             return state.set(payload.id, newComment)
         default:
