@@ -3,6 +3,7 @@ import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 import NewCommentForm from './NewCommentForm'
 import { connect } from 'react-redux'
+import { addComment } from '../AC'
 
 class CommentList extends Component {
     static propTypes = {
@@ -30,9 +31,9 @@ class CommentList extends Component {
     }
 
     getBody() {
-        const { comments, isOpen } = this.props
+        const { comments, isOpen, addComment, articleId } = this.props
         if (!isOpen) return null
-        const form = <NewCommentForm addComment={(comment) => console.log(comment)} />
+        const form = <NewCommentForm addComment={addComment} articleId = {articleId}/>
         if (!comments.length) return <div><p>No comments yet</p>{form}</div>
 
         const commentItems = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
@@ -49,4 +50,4 @@ export default connect((storeState, props) => {
     return {
         comments: props.commentsIds.map(id => storeState.comments.get(id))
     }
-})(toggleOpen(CommentList))
+}, {addComment})(toggleOpen(CommentList))
