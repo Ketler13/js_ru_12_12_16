@@ -10,3 +10,13 @@ export function arrayToMap(arr, Model) {
 export function mapToArray(immutableMap) {
     return immutableMap.valueSeq().toArray()
 }
+
+export function addCommentToList(payload, state) {
+    const { id, user, text } = payload
+    const newComment = {
+        id,
+        user,
+        text
+    }
+    return state.set(payload.id, newComment)
+}

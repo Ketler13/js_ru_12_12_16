@@ -1,6 +1,6 @@
 import { ADD_COMMENT } from '../constants'
 import { normalizedComments } from '../fixtures'
-import { arrayToMap } from '../helpers'
+import { arrayToMap, addCommentToList } from '../helpers'
 import { Record } from 'immutable'
 
 const CommentModel = Record({
@@ -16,13 +16,7 @@ export default (state = defaultState, action) => {
 
     switch (type) {
         case ADD_COMMENT:
-            const { id, user, text } = payload
-            const newComment = {
-                id,
-                user,
-                text
-            }
-            return state.set(payload.id, newComment)
+            return addCommentToList(payload, state)
         default:
             return state
     }
