@@ -20,3 +20,10 @@ export function addCommentToList(payload, state) {
     }
     return state.set(payload.id, newComment)
 }
+
+export function addCommentToArticle(payload, articlesState) {
+    const { id, articleId } = payload
+    const comments = articlesState.getIn([articleId, 'comments'])
+    comments.push(id)
+    return articlesState.setIn([articleId, 'comments'], comments)
+}
