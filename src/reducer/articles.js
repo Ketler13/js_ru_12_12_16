@@ -21,10 +21,6 @@ export default (articlesState = defaultState, action) => {
             return articlesState.delete(payload.id)
 
         case ADD_COMMENT:
-            // const { id, articleId } = payload
-            // const comments = articlesState.getIn([articleId, 'comments'])
-            // comments.push(id)
-            // return articlesState.setIn([articleId, 'comments'], comments)
             return addCommentToArticle(payload, articlesState)
     }
 
