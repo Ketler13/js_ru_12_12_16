@@ -1,16 +1,8 @@
 import { ADD_COMMENT } from '../constants'
-import { fromJS, toJS } from 'immutable'
+import { addIdToNewComment } from '../helpers'
 
 export default store => next => action => {
-    const { type, payload } = action
+    const { type } = action
 
-    if (type === ADD_COMMENT) {
-        const newId = Date.now()
-        const immutableAction = fromJS(action).setIn(["payload", "id"], newId)
-        const newAction = immutableAction.toJS()
-        
-        next(newAction)
-    } else {
-        next(action)
-    }
+    next(type === ADD_COMMENT ? addIdToNewComment(action) : action)
 }

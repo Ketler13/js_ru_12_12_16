@@ -1,4 +1,5 @@
 import { OrderedMap } from 'immutable'
+import { fromJS, toJS } from 'immutable'
 
 export function arrayToMap(arr, Model) {
     return arr.reduce((acc, entity) => {
@@ -26,4 +27,12 @@ export function addCommentToArticle(payload, articlesState) {
     const comments = articlesState.getIn([articleId, 'comments'])
     comments.push(id)
     return articlesState.setIn([articleId, 'comments'], comments)
+}
+
+export function addIdToNewComment(action) {
+    const { type, payload } = action
+    const newId = Date.now()
+    const immutableAction = fromJS(action).setIn(["payload", "id"], newId)
+    const newAction = immutableAction.toJS()
+    return newAction
 }
