@@ -11,6 +11,7 @@ class ArticleList extends React.Component {
     componentDidMount() {
         this.props.loadAllArticles()
     }
+
     render() {
         const {articles, loading, isOpenItem, toggleOpenItem} = this.props
         const articleElements = articles.map(article =>
