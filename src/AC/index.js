@@ -13,9 +13,10 @@ export function deleteArticle(id) {
     }
 }
 
-export function addComment(id, user, text, articleId) {
+export function addComment(articleId, comment) {
     return {
         type: ADD_COMMENT,
-        payload: {id, user, text, articleId}
+        payload: { articleId, comment },
+        generateId: true
     }
 }

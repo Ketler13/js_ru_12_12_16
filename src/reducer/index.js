@@ -7,6 +7,5 @@ import comments from './comments'
 export default combineReducers({
     count: counterReducer,
     articles: articlesReducer,
-    filters,
-    comments
+    filters, comments
 })

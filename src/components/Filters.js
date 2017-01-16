@@ -4,13 +4,12 @@ import DateRange from './DateRange'
 
 class Filters extends Component {
     static propTypes = {
-        articles: PropTypes.array.isRequired
     }
 
     render() {
         return (
             <div>
-                <ArticlesSelect articles/>
+                <ArticlesSelect/>
                 <DateRange/>
             </div>
         )

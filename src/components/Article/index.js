@@ -22,7 +22,6 @@ class Article extends Component {
      */
 
     componentWillUpdate() {
-        //console.log('---', 'updating article')
     }
 
     render() {
@@ -49,7 +48,7 @@ class Article extends Component {
         return (
             <section>
                 {this.props.article.text}
-                <CommentList commentsIds = {this.props.article.comments} articleId = {this.props.article.id}/>
+                <CommentList article = {this.props.article} />
             </section>
         )
     }

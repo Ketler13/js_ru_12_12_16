@@ -6,7 +6,6 @@ class NewCommentForm extends Component {
     }
 
     state = {
-        id: null,
         text: '',
         user: ''
     }
@@ -19,10 +18,7 @@ class NewCommentForm extends Component {
 
     handleSubmit = ev => {
         ev.preventDefault()
-        const { articleId } = this.props
-        if (this.state.text && this.state.user) {
-            this.props.addComment(this.state.id, this.state.user, this.state.text, articleId)
-        }
+        this.props.addComment(this.state)
         this.setState({
             user: '',
             text: ''
