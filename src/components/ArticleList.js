@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react'
 import {findDOMNode} from 'react-dom'
 import Article from './Article'
+import Loader from './Loader'
 import accordion from '../decorators/accordion'
 import { connect } from 'react-redux'
 import { mapToArray } from '../helpers'
@@ -11,7 +12,7 @@ class ArticleList extends React.Component {
         this.props.loadAllArticles()
     }
     render() {
-        const {articles, isOpenItem, toggleOpenItem} = this.props
+        const {articles, loading, isOpenItem, toggleOpenItem} = this.props
         const articleElements = articles.map(article =>
             <li key={article.id}>
                 <Article article={article}
@@ -20,6 +21,7 @@ class ArticleList extends React.Component {
                          ref = {this.getArticleRef}
                 />
             </li>)
+        const loader = loading && <Loader />
         return (
             <div>
                 <h2>Article List</h2>
@@ -27,6 +29,7 @@ class ArticleList extends React.Component {
                     {/*some comment*/}
                     {articleElements}
                 </ul>
+                {loader}
             </div>
         )
     }
@@ -44,7 +47,7 @@ ArticleList.propTypes = {
 
 export default connect(
     (state) => {
-        const articles = mapToArray(state.articles)
+        const articles = mapToArray(state.articles.entities)
         const { filters } = state
         const {selected} = filters
         const { from, to } = filters.dateRange
@@ -55,7 +58,8 @@ export default connect(
                 (!from || !to || (published > from && published < to))
         })
         return {
-            articles: filteredArticles
+            articles: filteredArticles,
+            loading: state.articles.loading
         }
     },
     { loadAllArticles }
