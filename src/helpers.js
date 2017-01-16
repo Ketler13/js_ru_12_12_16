@@ -1,5 +1,4 @@
-import { OrderedMap } from 'immutable'
-import { fromJS, toJS } from 'immutable'
+import { OrderedMap, fromJS, toJS } from 'immutable'
 
 export function arrayToMap(arr, Model) {
     return arr.reduce((acc, entity) => {
