@@ -25,6 +25,7 @@ export function addCommentToList(payload, state) {
 export function addCommentToArticle(payload, articlesState) {
     const { id, articleId } = payload
     const comments = articlesState.getIn([articleId, 'comments'])
+    //обрати внимание, comments - обычный массив, значит ты мутируеш стейт
     comments.push(id)
     return articlesState.setIn([articleId, 'comments'], comments)
 }
