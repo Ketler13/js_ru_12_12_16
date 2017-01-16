@@ -16,6 +16,7 @@ export default (state = defaultState, action) => {
 
     switch (type) {
         case ADD_COMMENT:
+            //в этой функции ты добавляешь обычный JS объект, а не new CommentModel
             return addCommentToList(payload, state)
         default:
             return state
