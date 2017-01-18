@@ -84,6 +84,7 @@ export function loadCommentsByArticleId(id, comments) {
                 payload: {id},
                 error
             }))
+
     }
     // return {
     //     type: LOAD_COMMENTS,
