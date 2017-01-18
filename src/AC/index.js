@@ -1,5 +1,5 @@
-import { INCREMENT, DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, LOAD_ARTICLE,
-    START, SUCCESS, FAIL } from '../constants'
+import { INCREMENT, DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES,
+LOAD_ARTICLE, LOAD_COMMENTS, START, SUCCESS, FAIL } from '../constants'
 import $ from 'jquery'
 
 export function increment() {
@@ -50,5 +50,31 @@ export function loadArticleById(id) {
                 payload: { id },
                 error
             }))
+    }
+}
+
+export function loadCommentsByArticleId(id) {
+    // return (dispatch, getState) => {
+    //     dispatch({
+    //         type: LOAD_COMMENTS + START,
+    //         payload: {id}
+    //     })
+    //
+    //     $.get(`/api/comment?article=${id}`)
+    //         .done(response => dispatch({
+    //             type: LOAD_COMMENTS + SUCCESS,
+    //             payload: { id },
+    //             response
+    //         }))
+    //         .fail(error => dispatch({
+    //             type: LOAD_COMMENTS + FAIL,
+    //             payload: {id},
+    //             error
+    //         }))
+    // }
+    return {
+        type: LOAD_COMMENTS,
+        payload: { id },
+        callAPI: `/api/comment?article=${id}`
     }
 }
