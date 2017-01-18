@@ -1,7 +1,7 @@
-import { ADD_COMMENT, LOAD_COMMENTS, START, SUCCESS, FAIL } from '../constants'
+import { ADD_COMMENT } from '../constants'
 import { normalizedComments } from '../fixtures'
 import { arrayToMap } from '../helpers'
-import { Record, OrderedMap } from 'immutable'
+import { Record } from 'immutable'
 
 const CommentModel = Record({
     id: null,
@@ -9,46 +9,15 @@ const CommentModel = Record({
     user: null
 })
 
-const DefaultReducerState = Record({
-    error: null,
-    loading: false,
-    loaded: false,
-    entities: new OrderedMap({})
-})
+const defaultState = arrayToMap(normalizedComments, CommentModel)
 
-export default (commentsState = new DefaultReducerState({}), action) => {
-    const { type, payload, response, error } = action
+export default (state = defaultState, action) => {
+    const { type, payload, randomId } = action
 
     switch (type) {
-        case LOAD_COMMENTS + START:
-            //здесь так не пройдет, ведь теоретически ты можешь одновременно для нескольких статей загружать
-            return commentsState.set('loading', true)
-
-        case LOAD_COMMENTS + SUCCESS:
-            return commentsState
-                .mergeIn(['entities'], arrayToMap(response, CommentModel))
-                .set('loading', false)
-                .set('loaded', true)
-                .set('error', null)
-
-        case LOAD_COMMENTS + FAIL:
-            return commentsState
-                .set('error', error)
-                .set('loading', false)
+        case ADD_COMMENT:
+            return state.set(randomId, new CommentModel({...payload.comment, id: randomId}))
     }
 
-    return commentsState
+    return state
 }
-
-// const defaultState = arrayToMap(normalizedComments, CommentModel)
-//
-// export default (state = defaultState, action) => {
-//     const { type, payload, randomId } = action
-//
-//     switch (type) {
-//         case ADD_COMMENT:
-//             return state.set(randomId, new CommentModel({...payload.comment, id: randomId}))
-//     }
-//
-//     return state
-// }
