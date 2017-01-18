@@ -39,11 +39,12 @@ class CommentList extends Component {
         const form = <NewCommentForm addComment={(comment) => addComment(article.id, comment)} />
         const loader = loading && <Loader />
         if (!comments.length) return <div><p>No comments yet</p>{form}</div>
-        if (loading) return <div>{loader}</div>
+        //if (loading) return <div>{loader}</div>
 
-        const commentItems = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
+        const commentItems = loading ? null : comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
         return (
             <div>
+                { loader }
                 <ul>{commentItems}</ul>
                 {form}
             </div>

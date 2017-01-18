@@ -55,6 +55,8 @@ export function loadArticleById(id) {
 
 export function loadCommentsByArticleId(id) {
     // return (dispatch, getState) => {
+    //     if (getState().articles.getIn(['entities', id])) return null
+    //
     //     dispatch({
     //         type: LOAD_COMMENTS + START,
     //         payload: {id}
