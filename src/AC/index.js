@@ -74,6 +74,7 @@ export function loadCommentsByArticleId(id) {
     //             error
     //         }))
     // }
+    //еще где-то должна была быть проверка, нужно ли загружать комменты
     return {
         type: LOAD_COMMENTS,
         payload: { id },
