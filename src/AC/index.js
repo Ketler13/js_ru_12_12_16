@@ -53,30 +53,41 @@ export function loadArticleById(id) {
     }
 }
 
-export function loadCommentsByArticleId(id) {
-    // return (dispatch, getState) => {
-    //     if (getState().articles.getIn(['entities', id])) return null
+export function loadCommentsByArticleId(id, comments) {
+    return (dispatch, getState) => {
+        const cashedComments = getState().comments.entities
+
+        dispatch({
+            type: LOAD_COMMENTS + START,
+            payload: {id}
+        })
+
+        cashedComments.forEach(comment => console.log(comment))
+
+    // comments.forEach(comment => {
+    //     if (cashedComments.has(comment)) {
     //
-    //     dispatch({
-    //         type: LOAD_COMMENTS + START,
-    //         payload: {id}
-    //     })
+    //     }
+    //     else {
     //
-    //     $.get(`/api/comment?article=${id}`)
-    //         .done(response => dispatch({
-    //             type: LOAD_COMMENTS + SUCCESS,
-    //             payload: { id },
-    //             response
-    //         }))
-    //         .fail(error => dispatch({
-    //             type: LOAD_COMMENTS + FAIL,
-    //             payload: {id},
-    //             error
-    //         }))
-    // }
-    return {
-        type: LOAD_COMMENTS,
-        payload: { id },
-        callAPI: `/api/comment?article=${id}`
+    //     }
+    // })
+
+        $.get(`/api/comment?article=${id}`)
+            .done(response => dispatch({
+                type: LOAD_COMMENTS + SUCCESS,
+                payload: { id },
+                response
+            }))
+            .fail(error => dispatch({
+                type: LOAD_COMMENTS + FAIL,
+                payload: {id},
+                error
+            }))
     }
+    // return {
+    //     type: LOAD_COMMENTS,
+    //     payload: { id },
+    //     callAPI: `/api/comment?article=${id}`
+    // }
 }

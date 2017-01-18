@@ -14,8 +14,14 @@ class CommentList extends Component {
         toggleOpen: PropTypes.func
     }
 
+    componentDidMount() {
+
+    }
+
     componentWillReceiveProps(nextProps) {
-        if (!this.props.isOpen && nextProps.isOpen) nextProps.loadCommentsByArticleId(nextProps.article.id)
+        const articleId = nextProps.article.id
+        const articleComments = nextProps.article.comments
+        if (!this.props.isOpen && nextProps.isOpen) nextProps.loadCommentsByArticleId(articleId, articleComments)
     }
 
     render() {
@@ -34,14 +40,13 @@ class CommentList extends Component {
     }
 
     getBody() {
-        const { comments, article, loading, isOpen, addComment } = this.props
+        const { comments, article, loading, isOpen, addComment, commentsInStore } = this.props
         if (!isOpen) return null
         const form = <NewCommentForm addComment={(comment) => addComment(article.id, comment)} />
         const loader = loading && <Loader />
         if (!comments.length) return <div><p>No comments yet</p>{form}</div>
-        //if (loading) return <div>{loader}</div>
 
-        const commentItems = loading ? null : comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
+        const commentItems = !commentsInStore ? null : comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
         return (
             <div>
                 { loader }
@@ -55,6 +60,7 @@ class CommentList extends Component {
 export default connect((storeState, props) => {
     return {
         comments: props.article.comments.map(id => storeState.comments.entities.get(id)),
-        loading: storeState.comments.loading
+        loading: storeState.comments.loading,
+        commentsInStore: storeState.comments.entities.size
     }
 }, { addComment, loadCommentsByArticleId })(toggleOpen(CommentList))
