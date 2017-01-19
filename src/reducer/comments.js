@@ -25,7 +25,7 @@ export default (state = new DefaultReducerState({}), action) => {
 
     switch (type) {
         case ADD_COMMENT:
-            return state.set(randomId, new CommentModel({...payload.comment, id: randomId}))
+            return state.setIn(['entities', randomId], new CommentModel({...payload.comment, id: randomId}))
 
         case LOAD_COMMENTS + START:
             return state.updateIn(['loading'], loading => loading.concat(payload.articleId))
