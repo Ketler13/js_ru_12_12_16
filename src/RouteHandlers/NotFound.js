@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 
-class Menu extends Component {
+class NotFound extends Component {
     static propTypes = {
 
     };
@@ -8,13 +8,10 @@ class Menu extends Component {
     render() {
         return (
             <div>
-                <h3>Select path</h3>
-                <ul>
-                    {this.props.children}
-                </ul>
+                <h3>Page Not Found</h3>
             </div>
         )
     }
 }
 
-export default Menu
+export default NotFound

@@ -5,19 +5,19 @@ import Menu from '../components/menu/Menu'
 import MenuItem from '../components/menu/MenuItem'
 
 class App extends Component {
-    static PropTypes = {
+    static propTypes = {
 
-    }
+    };
 
     render() {
         return (
             <Provider store = {store}>
                 <div>
-                    <h1>News app</h1>
+                    <h1>News App</h1>
                     <Menu>
-                        <MenuItem path='/counter' />
-                        <MenuItem path='/filters' />
-                        <MenuItem path='/articles' />
+                        <MenuItem path="/counter"/>
+                        <MenuItem path="/articles"/>
+                        <MenuItem path="/filters"/>
                     </Menu>
                     {this.props.children}
                 </div>
