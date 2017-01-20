@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import AppContainer from '../components/AppContainer'
 import store from '../store'
 import { Provider } from 'react-redux'
+import Menu from '../components/menu/Menu'
+import MenuItem from '../components/menu/MenuItem'
 
 class App extends Component {
     static PropTypes = {
@@ -11,7 +12,15 @@ class App extends Component {
     render() {
         return (
             <Provider store = {store}>
-                <AppContainer />
+                <div>
+                    <h1>News app</h1>
+                    <Menu>
+                        <MenuItem path='/counter' />
+                        <MenuItem path='/filters' />
+                        <MenuItem path='/articles' />
+                    </Menu>
+                    {this.props.children}
+                </div>
             </Provider>
         )
     }
