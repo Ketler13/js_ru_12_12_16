@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import {addComment, loadCommentsByArticleId } from '../AC'
+import {addComment, loadArticleComments} from '../AC'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 import NewCommentForm from './NewCommentForm'
@@ -13,8 +13,9 @@ class CommentList extends Component {
         toggleOpen: PropTypes.func
     }
 
-    componentWillReceiveProps(nextProps) {
-        if ( !this.props.isOpen && nextProps.isOpen) nextProps.loadCommentsByArticleId(nextProps.article.id)
+    componentWillReceiveProps({isOpen, article, loadArticleComments}) {
+        if (isOpen && !this.props.isOpen &&
+            !article.loadedComments && !article.loadingComments) loadArticleComments(article.id)
     }
 
     render() {
@@ -33,18 +34,15 @@ class CommentList extends Component {
     }
 
     getBody() {
-        const { comments, article, isOpen, addComment, loading, loaded } = this.props
+        const { comments, article, isOpen, addComment } = this.props
         if (!isOpen) return null
+        if (article.loadingComments || !article.loadedComments) return <Loader />
         const form = <NewCommentForm addComment={(comment) => addComment(article.id, comment)} />
-        const isCommentLoading = loading.includes(article.id)
-        const isCommentLoaded = loaded.includes(article.id)
-        const loader = isCommentLoading && <Loader />
         if (!comments.length) return <div><p>No comments yet</p>{form}</div>
 
-        const commentItems = isCommentLoaded ? comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>) : null
+        const commentItems = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
         return (
             <div>
-                { loader }
                 <ul>{commentItems}</ul>
                 {form}
             </div>
@@ -54,8 +52,6 @@ class CommentList extends Component {
 
 export default connect((storeState, props) => {
     return {
-        comments: props.article.comments.map(id => storeState.comments.entities.get(id)),
-        loading: storeState.comments.loading,
-        loaded:  storeState.comments.loaded
+        comments: props.article.comments.map(id => storeState.comments.getIn(['entities', id]))
     }
-}, { addComment, loadCommentsByArticleId })(toggleOpen(CommentList))
+}, { addComment, loadArticleComments })(toggleOpen(CommentList))
