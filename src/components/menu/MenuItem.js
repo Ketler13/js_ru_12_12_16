@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
 
 class MenuItem extends Component {
     static PropTypes = {
@@ -8,10 +9,10 @@ class MenuItem extends Component {
 
     render() {
         const { path, name } = this.props
-        
+
         return (
             <li>
-                <a href={path}>{name || path}</a>
+                <Link to={path} activeStyle={{color: 'red'}}>{name || path}</Link>
             </li>
         )
     }
