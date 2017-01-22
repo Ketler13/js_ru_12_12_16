@@ -1,5 +1,5 @@
 import { INCREMENT, DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, LOAD_ARTICLE, LOAD_ARTICLE_COMMENTS,
-    START, SUCCESS, FAIL } from '../constants'
+    START, SUCCESS, FAIL, LOAD_ALL_COMMENTS } from '../constants'
 import $ from 'jquery'
 
 export function increment() {
@@ -58,5 +58,17 @@ export function loadArticleComments(articleId) {
         type: LOAD_ARTICLE_COMMENTS,
         payload: { articleId },
         callAPI: `/api/comment?article=${articleId}`
+    }
+}
+
+export function loadAllComments(commentsPerPage, offset, currentPage) {
+    return {
+        type: LOAD_ALL_COMMENTS,
+        payload: {
+            commentsPerPage,
+            offset,
+            currentPage
+        },
+        callAPI: `/api/comment?limit=${commentsPerPage}&offset=${offset}`
     }
 }
