@@ -38,7 +38,6 @@ class CommentPaginator extends Component {
             this.setState({
                 idsToLoad: arrayFromRange(this.state.offset, (this.state.commentsPerPage + (this.state.offset - 1)))
             })
-            //console.log(this.state)
         } else if (ev.target.className === 'prev') {
             this.setState({
                 currentPage: this.state.currentPage - 1,
@@ -51,16 +50,12 @@ class CommentPaginator extends Component {
     handleSubmit = ev => {
         ev.preventDefault()
         const { commentsPerPage, offset, currentPage } = this.state
-        //const { isPageLoaded, commentState } = this.props
-        //const { idsToLoad } = this.state
         const { commentState } = this.props
         const idsToLoad = arrayFromRange(this.state.offset, (this.state.commentsPerPage + (this.state.offset - 1)))
         const comments =  mapToArray(commentState.entities)
         let cachedIds = []
         commentState.entities.forEach(entity => cachedIds.push(entity.id))
-        //console.log(idsToLoad, cachedIds)
         const isPageLoaded = idsToLoad.every(id => cachedIds.includes(id))
-        //console.log(idsToLoad, isPageLoaded)
         if (isPageLoaded) {
             this.props.loadCommentsFromStore(idsToLoad, isPageLoaded)
         } else {
@@ -69,12 +64,13 @@ class CommentPaginator extends Component {
     }
 
     render() {
-        const {comments, loading, isPageLoaded, idsToLoad} = this.props
-        console.log(isPageLoaded)
+        const {comments, loading, isPageLoaded, idsToLoad, offset, commentsPerPage} = this.props
+        const idsToLoadFromApi = arrayFromRange(offset, (commentsPerPage + (offset - 1)))
         const commentsFromStore = isPageLoaded ? comments.filter(comment => {
              return idsToLoad.some(id => id === comment.id)
-        }) : comments
-        console.log(commentsFromStore)
+        }) : comments.filter(comment => {
+            return idsToLoadFromApi.some(id => id === comment.id)
+        })
         const commentItems = commentsFromStore.map(comment =>
             <li key = {comment.id}>{comment.id}<Comment comment = {comment} /></li>
         )
@@ -102,7 +98,6 @@ export default connect(store => {
     const { commentsPerPage, offset, currentPage, isPageLoaded, idsToLoad } = store.pagination
     const commentState = store.pagination
     const comments =  mapToArray(store.pagination.entities)
-    console.log(isPageLoaded, idsToLoad)
 
 
     return {

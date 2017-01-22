@@ -35,6 +35,8 @@ export default (state = new DefaultReducerState({}), action) => {
             return state
                 .mergeIn(['entities'], arrayToMap(comments, CommentModel))
                 .set('loading', false)
+                .set('idsToLoad', [])
+                .set('isPageLoaded', false)
 
         case LOAD_COMMENTS_FROM_STORE:
             return state.set('isPageLoaded', isPageLoaded)
