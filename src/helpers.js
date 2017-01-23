@@ -14,11 +14,3 @@ export function mapToArray(immutableMap) {
 export function generateRandomId() {
     return Date.now() + Math.random()
 }
-
-export function arrayFromRange(from, to) {
-    let arr = []
-    for (let i = from; i <= to; i++) {
-        arr.push(i)
-    }
-    return arr
-}

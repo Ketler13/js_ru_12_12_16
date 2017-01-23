@@ -56,6 +56,6 @@ export default (articlesState = new DefaultReducerState({}), action) => {
                 .setIn(['entities', payload.articleId, 'loadingComments'], false)
                 .setIn(['entities', payload.articleId, 'loadedComments'], true)
     }
-    
+
     return articlesState
 }
