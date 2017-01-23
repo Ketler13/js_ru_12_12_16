@@ -14,6 +14,10 @@ class Article extends Component {
         onClick: PropTypes.func
     }
 
+    static contextTypes = {
+        router: PropTypes.object
+    }
+
     componentDidMount() {
         if (this.props.isOpen) this.props.loadArticleById(this.props.id)
     }
@@ -64,4 +68,5 @@ class Article extends Component {
 
 export default connect((state, props) => ({
     article: state.articles.getIn(['entities', props.id])
-}), { deleteArticle, loadArticleById })(Article)
+}), { deleteArticle, loadArticleById }, null,
+{pure: false})(Article)
