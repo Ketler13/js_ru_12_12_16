@@ -3,6 +3,8 @@ import store from '../store'
 import { Provider } from 'react-redux'
 import Menu from '../components/menu/Menu'
 import MenuItem from '../components/menu/MenuItem'
+import { localize } from '../helpers'
+import localization from '../localization'
 
 class App extends Component {
     static propTypes = {
@@ -10,27 +12,36 @@ class App extends Component {
     };
 
     state = {
-        username: ''
+        username: '',
+        lang: 'en'
     }
 
     static childContextTypes = {
-        user: PropTypes.string
+        user: PropTypes.string,
+        lang: PropTypes.string,
+        localization: PropTypes.obj,
+        localize: PropTypes.func
     }
 
     getChildContext() {
         return {
-            user: this.state.username
+            user: this.state.username,
+            lang: this.state.lang,
+            localization,
+            localize
         }
     }
 
     render() {
-        console.log('---', 'App')
         return (
             <Provider store = {store}>
                 <div>
                     <h1>News App</h1>
+                    <p>{localize('chooseLanguage', this.state.lang, localization)}:</p>
+                    <p>English <input type="button" value="en" onClick={this.changeLang}/></p>
+                    <p>Русский <input type="button"  value="ru" onClick={this.changeLang}/></p>
                     <div>
-                        Input username:
+                        {localize('inputUserName', this.state.lang, localization)}:
                         <input type="text" value={this.state.username} onChange={this.handleChange}/>
                     </div>
                     <Menu>
@@ -42,6 +53,12 @@ class App extends Component {
                 </div>
             </Provider>
         )
+    }
+
+    changeLang = ev => {
+        this.setState({
+            lang: ev.target.value
+        })
     }
 
     handleChange = ev => {

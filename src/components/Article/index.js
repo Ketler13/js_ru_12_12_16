@@ -15,7 +15,10 @@ class Article extends Component {
     }
 
     static contextTypes = {
-        router: PropTypes.object
+        router: PropTypes.object,
+        lang: PropTypes.string,
+        localization: PropTypes.obj,
+        localize: PropTypes.func
     }
 
     componentDidMount() {
@@ -32,12 +35,13 @@ class Article extends Component {
 
     render() {
         const { article, onClick } = this.props
+        const { localize, localization, lang } = this.context
         if (!article) return null
         return (
             <div ref = "container">
                 <h3 onClick = {onClick}>{article.title}</h3>
                 <div>
-                    <a href="#" onClick = {this.handleDelete}>delete article</a>
+                    <a href="#" onClick = {this.handleDelete}>{localize('deleteArticle', lang, localization)}</a>
                 </div>
                 <CSSTransition
                     transitionName="article-body"

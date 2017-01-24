@@ -12,8 +12,15 @@ class ArticleList extends React.Component {
         this.props.loadAllArticles()
     }
 
+    static contextTypes = {
+        lang: PropTypes.string,
+        localization: PropTypes.obj,
+        localize: PropTypes.func
+    }
+
     render() {
         const {articles, loading, isOpenItem, toggleOpenItem} = this.props
+        const { localize, localization, lang } = this.context
         const articleElements = articles.map(article =>
             <li key={article.id}>
                 <Link to={`/articles/${article.id}`} activeStyle={{color: 'red'}}>{article.title}</Link>
@@ -21,7 +28,7 @@ class ArticleList extends React.Component {
         const loader = loading && <Loader />
         return (
             <div>
-                <h2>Article List</h2>
+                <h2>{localize('articleList', lang, localization)}</h2>
                 <ul>
                     {/*some comment*/}
                     {articleElements}

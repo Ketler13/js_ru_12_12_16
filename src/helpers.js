@@ -14,3 +14,13 @@ export function mapToArray(immutableMap) {
 export function generateRandomId() {
     return Date.now() + Math.random()
 }
+
+export function localize(phrase, lang, src) {
+    switch (lang) {
+        case 'en':
+            return src[phrase][0]
+
+        case 'ru':
+            return src[phrase][1]
+    }
+}
