@@ -12,6 +12,7 @@ class CommentsPage extends Component {
         total: PropTypes.number
     };
 
+    //тут и в других местах: лучше сделай вукоратор либо компонент-обертку для локализации, чтоб не обращатся кажды раз к контексту, иначе потом тяжело будет что-либо поменять
     static contextTypes = {
         lang: PropTypes.string,
         localization: PropTypes.obj,
