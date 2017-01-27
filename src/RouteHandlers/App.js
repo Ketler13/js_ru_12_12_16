@@ -23,6 +23,7 @@ class App extends Component {
     }
 
     getChildContext() {
+        //ок, но старайся не хранить такое количество данных в контексте, лучше объедени все в один объект
         return {
             user: this.state.username,
             dictionary: dictionaries[this.state.language]

@@ -12,6 +12,12 @@ class CommentsPage extends Component {
         total: PropTypes.number
     };
 
+    static contextTypes = {
+        lang: PropTypes.string,
+        localization: PropTypes.obj,
+        localize: PropTypes.func
+    }
+
     componentDidMount() { checkAndLoad(this.props) }
 
     componentWillReceiveProps = checkAndLoad
