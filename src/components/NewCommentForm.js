@@ -5,12 +5,6 @@ class NewCommentForm extends Component {
         addComment: PropTypes.func
     }
 
-    static contextTypes = {
-        lang: PropTypes.string,
-        localization: PropTypes.obj,
-        localize: PropTypes.func
-    }
-
     state = {
         text: '',
         user: ''
@@ -32,11 +26,10 @@ class NewCommentForm extends Component {
     }
 
     render() {
-        const { localize, localization, lang } = this.context
         return (
             <form onSubmit = {this.handleSubmit}>
-                {localize('comment', lang, localization)}: <input type="text" value={this.state.text} onChange = {this.handleChange('text')}/>
-                {localize('user', lang, localization)}: <input type="text" value={this.state.user} onChange = {this.handleChange('user')}/>
+                comment: <input type="text" value={this.state.text} onChange = {this.handleChange('text')}/>
+                user: <input type="text" value={this.state.user} onChange = {this.handleChange('user')}/>
                 <input type = "submit"/>
             </form>
         )

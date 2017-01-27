@@ -3,8 +3,9 @@ import store from '../store'
 import { Provider } from 'react-redux'
 import Menu from '../components/menu/Menu'
 import MenuItem from '../components/menu/MenuItem'
-import { localize } from '../helpers'
-import localization from '../localization'
+import dictionaries from '../dictionaries'
+import LocalizedText from '../components/LocalizedText'
+import Switcher from '../components/Switcher'
 
 class App extends Component {
     static propTypes = {
@@ -13,22 +14,18 @@ class App extends Component {
 
     state = {
         username: '',
-        lang: 'en'
+        language: 'ru'
     }
 
     static childContextTypes = {
         user: PropTypes.string,
-        lang: PropTypes.string,
-        localization: PropTypes.obj,
-        localize: PropTypes.func
+        dictionary: PropTypes.object
     }
 
     getChildContext() {
         return {
             user: this.state.username,
-            lang: this.state.lang,
-            localization,
-            localize
+            dictionary: dictionaries[this.state.language]
         }
     }
 
@@ -36,12 +33,10 @@ class App extends Component {
         return (
             <Provider store = {store}>
                 <div>
-                    <h1>News App</h1>
-                    <p>{localize('chooseLanguage', this.state.lang, localization)}:</p>
-                    <p>English <input type="button" value="en" onClick={this.changeLang}/></p>
-                    <p>Русский <input type="button"  value="ru" onClick={this.changeLang}/></p>
+                    <Switcher items = {['ru', 'en']} onChange={this.changeLang} active = {this.state.language}/>
+                    <h1><LocalizedText text="News App"/></h1>
                     <div>
-                        {localize('inputUserName', this.state.lang, localization)}:
+                        <LocalizedText text="Input username"/>:
                         <input type="text" value={this.state.username} onChange={this.handleChange}/>
                     </div>
                     <Menu>
@@ -54,12 +49,7 @@ class App extends Component {
             </Provider>
         )
     }
-
-    changeLang = ev => {
-        this.setState({
-            lang: ev.target.value
-        })
-    }
+    changeLang = language => this.setState({ language })
 
     handleChange = ev => {
         this.setState({

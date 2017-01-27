@@ -5,6 +5,7 @@ import toggleOpen from '../decorators/toggleOpen'
 import NewCommentForm from './NewCommentForm'
 import Loader from './Loader'
 import {connect} from 'react-redux'
+import LocalizedText from './LocalizedText'
 
 class CommentList extends Component {
     static propTypes = {
@@ -14,10 +15,7 @@ class CommentList extends Component {
     }
 
     static contextTypes = {
-        user: PropTypes.string,
-        lang: PropTypes.string,
-        localization: PropTypes.obj,
-        localize: PropTypes.func
+        user: PropTypes.string
     }
 
     componentWillReceiveProps({isOpen, article, loadArticleComments}) {
@@ -35,24 +33,22 @@ class CommentList extends Component {
     }
 
     getLink() {
-        const { localize, localization, lang } = this.context
         return <a href="#" onClick = {this.props.toggleOpen}>
-            {this.props.isOpen ? localize('hide', lang, localization) : localize('show', lang, localization)} {localize('comments', lang, localization)}
+            <LocalizedText text={(this.props.isOpen ? 'hide' : 'show')  + ' comments'}/>
         </a>
     }
 
     getBody() {
         const { comments, article, isOpen, addComment } = this.props
-        const { localize, localization, lang } = this.context
         if (!isOpen) return null
         if (article.loadingComments || !article.loadedComments) return <Loader />
         const form = <NewCommentForm addComment={(comment) => addComment(article.id, comment)} />
-        if (!comments.length) return <div><p>{localize('noCommentsYet', lang, localization)}</p>{form}</div>
+        if (!comments.length) return <div><p><LocalizedText text="No comments yet"/></p>{form}</div>
 
         const commentItems = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
         return (
             <div>
-                <b>{localize('user', lang, localization)}: {this.context.user}</b>
+                <b>User: {this.context.user}</b>
                 <ul>{commentItems}</ul>
                 {form}
             </div>

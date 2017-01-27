@@ -4,6 +4,7 @@ import CSSTransition from 'react-addons-css-transition-group'
 import { deleteArticle, loadArticleById } from '../../AC'
 import { connect } from 'react-redux'
 import './style.css'
+import LocalizedText from '../LocalizedText'
 
 class Article extends Component {
     static propTypes = {
@@ -15,10 +16,7 @@ class Article extends Component {
     }
 
     static contextTypes = {
-        router: PropTypes.object,
-        lang: PropTypes.string,
-        localization: PropTypes.obj,
-        localize: PropTypes.func
+        router: PropTypes.object
     }
 
     componentDidMount() {
@@ -35,13 +33,12 @@ class Article extends Component {
 
     render() {
         const { article, onClick } = this.props
-        const { localize, localization, lang } = this.context
         if (!article) return null
         return (
             <div ref = "container">
                 <h3 onClick = {onClick}>{article.title}</h3>
                 <div>
-                    <a href="#" onClick = {this.handleDelete}>{localize('deleteArticle', lang, localization)}</a>
+                    <a href="#" onClick = {this.handleDelete}><LocalizedText text="delete article"/></a>
                 </div>
                 <CSSTransition
                     transitionName="article-body"
@@ -72,5 +69,4 @@ class Article extends Component {
 
 export default connect((state, props) => ({
     article: state.articles.getIn(['entities', props.id])
-}), { deleteArticle, loadArticleById }, null,
-{pure: false})(Article)
+}), { deleteArticle, loadArticleById }, null, {pure: false})(Article)

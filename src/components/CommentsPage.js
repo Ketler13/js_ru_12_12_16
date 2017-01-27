@@ -12,21 +12,14 @@ class CommentsPage extends Component {
         total: PropTypes.number
     };
 
-    static contextTypes = {
-        lang: PropTypes.string,
-        localization: PropTypes.obj,
-        localize: PropTypes.func
-    }
-
     componentDidMount() { checkAndLoad(this.props) }
 
     componentWillReceiveProps = checkAndLoad
 
     render() {
         const { total, comments, page } = this.props
-        const { localize, localization, lang } = this.context
         if (!total) return <Loader />
-        if ( (page - 1) * 5 >= total ) return <h3>{localize('noCommentsYet', lang, localization)}</h3>
+        if ( (page - 1) * 5 >= total ) return <h3>No comments for this page</h3>
         if (!comments || !comments.size) return <Loader />
 
         const commentItems = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
